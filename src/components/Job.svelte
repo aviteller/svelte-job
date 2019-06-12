@@ -6,10 +6,8 @@
 
   import { onMount } from "svelte";
 
- 
-
   onMount(() => {
-   addStars();
+    addStars();
   });
 
   const dispatch = createEventDispatcher();
@@ -109,9 +107,7 @@
         el.innerHTML = starArray.join("");
       }
     });
-
   };
-
 </script>
 
 <style>
@@ -120,6 +116,17 @@
   }
   select {
     margin-bottom: 10px;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  }
+
+  label {
+    margin-right: 10px;
   }
 </style>
 
@@ -136,7 +143,9 @@
        {status}
     </p>
     <button on:click={changeFields} class="btn btn-sm">Edit</button>
-    <button on:click={noteAddForm} class="btn btn-sm">{!showNoteForm ?'Show Notes':'Hide Notes'}</button>
+    <button on:click={noteAddForm} class="btn btn-sm">
+      {!showNoteForm ? 'Show Notes' : 'Hide Notes'}
+    </button>
     <button class="btn btn-danger btn-sm" on:click={removeJob}>x</button>
     {#if showNoteForm}
       <AddNote {id} on:noteadded={noteAdded} />
@@ -149,28 +158,38 @@
       {/if}
     {/if}
   {:else}
-    <input type="text" name="name" bind:value={name} on:blur={updateField} />
+    <div class="form-group">
+      <label for="">Name</label>
+      <input type="text" name="name" bind:value={name} on:blur={updateField} />
+    </div>
+    <div class="form-group">
+      <label for="">Description</label>
     <textarea
       bind:value={description}
       name="description"
       on:blur={updateField} />
-
+    </div>
+<div class="form-group">
+  <label for="">Status</label>
     <select on:change={updateField} {status} name="status" bind:value={status}>
       <option value="0" disabled>-- Please Select --</option>
       {#each statuses as stat}
         <option value={stat}>{stat}</option>
       {/each}
     </select>
-
+</div>
+<div class="form-group">
+  <label for="">Rating</label>
     <select on:change={updateField} name="rating" bind:value={rating}>
-      <option value="0" selected={rating===0}>0</option>
-      <option value="1" selected={rating===1}>1</option>
-      <option value="2" selected={rating===2}>2</option>
-      <option value="3" selected={rating===3}>3</option>
-      <option value="4" selected={rating===4}>4</option>
-      <option value="5" selected={rating===5}>5</option>
+      <option value="0" selected={rating === 0}>0</option>
+      <option value="1" selected={rating === 1}>1</option>
+      <option value="2" selected={rating === 2}>2</option>
+      <option value="3" selected={rating === 3}>3</option>
+      <option value="4" selected={rating === 4}>4</option>
+      <option value="5" selected={rating === 5}>5</option>
 
     </select>
+</div>
     <button on:click={changeFields} class="btn btn-sm">Save</button>
   {/if}
 

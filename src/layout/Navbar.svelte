@@ -12,7 +12,7 @@
 
 </script>
 
-<div class="navbar bg-primary">
+<div class="navbar bg-primary" style="text-align:center">
   <h1>Job Finder</h1>
   <div class="pull-right">
     <SearchBox on:search={Search}/>
